@@ -26,14 +26,14 @@ bash
 cd gym_backend
 npm install          # Εγκατάσταση dependencies
 npm run dev          # Development server με auto-reload
-# Ο server θα τρέξει στο: http://localhost:3000
+Ο server θα τρέξει στο: http://localhost:3000
 
 3. Εκκίνηση Frontend (Angular)
 bash
 cd gym-frontend
 npm install          # Εγκατάσταση dependencies
 ng serve             # Development server
-# Η εφαρμογή θα ανοίξει στο: http://localhost:4200
+Η εφαρμογή θα ανοίξει στο: http://localhost:4200
 
 
 👥 Διαπιστευτήρια Χρηστών
