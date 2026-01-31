@@ -16,19 +16,19 @@ REST API με τεκμηρίωση Swagger
 
 🚀 Εκκίνηση & Deployment
 
-1. Clone το Repository
+1 Clone το Repository
 bash
 git clone https://github.com/GeorgePaidis/gym-management-system.git
 cd gym-management-system
 
-2. Εκκίνηση Backend (Node.js API)
+2 Εκκίνηση Backend (Node.js API)
 bash
 cd gym_backend
 npm install          # Εγκατάσταση dependencies
 npm run dev          # Development server με auto-reload
 Ο server θα τρέξει στο: http://localhost:3000
 
-3. Εκκίνηση Frontend (Angular)
+3 Εκκίνηση Frontend (Angular)
 bash
 cd gym-frontend
 npm install          # Εγκατάσταση dependencies
