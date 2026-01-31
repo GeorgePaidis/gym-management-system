@@ -1,0 +1,91 @@
+<div class="login-page min-vh-100 d-flex align-items-center justify-content-center py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <!-- Κάρτα σύνδεσης -->
+        <div class="card shadow-lg border-0">
+          <div class="card-header bg-primary text-white text-center py-4">
+            <h3 class="mb-0">Σύνδεση Μέλους</h3>
+          </div>
+          
+          <div class="card-body p-4 p-md-5">
+            <form [formGroup]="form" class="d-flex flex-column gap-3" (ngSubmit)="onSubmit()">
+              <!-- Πεδίο email -->
+              <div class="form-group">
+                <label for="email" class="form-label fw-semibold">
+                  Διεύθυνση Email
+                </label>
+                <input 
+                  type="email" 
+                  class="form-control form-control-lg" 
+                  id="email"
+                  formControlName="email"
+                  placeholder="Εισάγετε το email σας"
+                  [class.is-invalid]="email?.invalid && email?.touched"
+                  required>
+                  @if (email?.invalid && email?.touched) {
+                  <div class="invalid-feedback">
+                    @if (email?.errors?.['required']) {
+                      <div>Το email είναι απαραίτητο</div>
+                    }
+                    @if (email?.errors?.['email']) {
+                      <div>Παρακαλώ εισάγετε έγκυρο email</div>
+                    }
+                  </div>
+                  }
+              </div>
+
+              <!-- Πεδίο κωδικού πρόσβασης -->
+              <div class="form-group">
+                <label for="password" class="form-label fw-semibold">
+                  Κωδικός Πρόσβασης
+                </label>
+                <input 
+                  type="password" 
+                  class="form-control form-control-lg" 
+                  id="password"
+                  formControlName="password"
+                  placeholder="Εισάγετε τον κωδικό σας"
+                  [class.is-invalid]="password?.invalid && password?.touched"
+                  required>
+                  @if (password?.invalid && password?.touched) {
+                    <div class="invalid-feedback">
+                      @if (password?.errors?.['required']) {
+                        <div>Ο κωδικός πρόσβασης είναι απαραίτητος</div>
+                      }
+                    </div>
+                  }
+              </div>
+              
+              <button type="submit" class="btn bg-warning btn-lg w-100 mt-3">
+                Σύνδεση στο Λογαριασμό
+              </button>
+
+              <!-- Εμφάνιση μηνύματος σφάλματος -->
+              @if (errorMessage) {
+                <div class="alert alert-danger mt-3">
+                  <strong>Σφάλμα Σύνδεσης:</strong> {{errorMessage}}
+                </div>
+              }
+
+              <!-- Κατάσταση φόρτωσης -->
+              @if (isLoading) {
+                <div class="alert alert-info mt-3">
+                  Σύνδεση σε εξέλιξη...
+                </div>
+              }
+
+              <!-- Σύνδεση για δημιουργία λογαριασμού -->
+              <div class="text-center mt-4">
+                <p class="mb-2">Δεν έχετε λογαριασμό;</p>
+                <a routerLink="/register" class="btn btn-outline-primary">
+                  Δημιουργία Νέου Λογαριασμού
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

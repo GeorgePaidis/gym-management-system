@@ -1,0 +1,167 @@
+<div class="register-page min-vh-100 d-flex align-items-center justify-content-center py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-7">
+        <!-- Κάρτα εγγραφής -->
+        <div class="card shadow-lg border-0">
+          <div class="card-header bg-primary text-white text-center py-4">
+            <h3 class="mb-0">Δημιουργία Νέου Λογαριασμού</h3>
+          </div>
+          
+          <div class="card-body p-4">
+            <!-- Μηνύματα επιτυχίας και σφάλματος -->
+            <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show mb-4">
+              {{ errorMessage }}
+              <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+            </div>
+
+            <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show mb-4">
+              {{ successMessage }}
+            </div>
+
+            <!-- Φόρμα εγγραφής -->
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-3">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="firstname" class="form-label fw-semibold">
+                      Όνομα *
+                    </label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      id="firstname"
+                      formControlName="firstname"
+                      placeholder="Εισάγετε το όνομά σας"
+                      [class.is-invalid]="isFieldInvalid('firstname')"
+                      required>
+                    <div *ngIf="isFieldInvalid('firstname')" class="invalid-feedback">
+                      {{ getFieldError('firstname') }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="lastname" class="form-label fw-semibold">
+                      Επώνυμο *
+                    </label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      id="lastname"
+                      formControlName="lastname"
+                      placeholder="Εισάγετε το επώνυμο σας"
+                      [class.is-invalid]="isFieldInvalid('lastname')"
+                      required>
+                    <div *ngIf="isFieldInvalid('lastname')" class="invalid-feedback">
+                      {{ getFieldError('lastname') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label fw-semibold">
+                  Διεύθυνση Email *
+                </label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="email"
+                  formControlName="email"
+                  placeholder="Εισάγετε το email σας"
+                  [class.is-invalid]="isFieldInvalid('email')"
+                  required>
+                <div *ngIf="isFieldInvalid('email')" class="invalid-feedback">
+                  {{ getFieldError('email') }}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="phone" class="form-label fw-semibold">
+                  Τηλέφωνο
+                </label>
+                <input 
+                  type="tel" 
+                  class="form-control" 
+                  id="phone"
+                  formControlName="phone"
+                  placeholder="Εισάγετε αριθμό τηλεφώνου"
+                  [class.is-invalid]="isFieldInvalid('phone')">
+                <div *ngIf="isFieldInvalid('phone')" class="invalid-feedback">
+                  {{ getFieldError('phone') }}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="password" class="form-label fw-semibold">
+                      Κωδικός Πρόσβασης *
+                    </label>
+                    <input 
+                      type="password" 
+                      class="form-control" 
+                      id="password"
+                      formControlName="password"
+                      placeholder="Δημιουργήστε έναν κωδικό"
+                      [class.is-invalid]="isFieldInvalid('password')"
+                      required>
+                    <div *ngIf="isFieldInvalid('password')" class="invalid-feedback">
+                      {{ getFieldError('password') }}
+                    </div>
+                    <div class="form-text small">Τουλάχιστον 6 χαρακτήρες</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="confirmPassword" class="form-label fw-semibold">
+                      Επιβεβαίωση Κωδικού *
+                    </label>
+                    <input 
+                      type="password" 
+                      class="form-control" 
+                      id="confirmPassword"
+                      formControlName="confirmPassword"
+                      placeholder="Επιβεβαιώστε τον κωδικό σας"
+                      [class.is-invalid]="isFieldInvalid('confirmPassword')"
+                      required>
+                    <div *ngIf="isFieldInvalid('confirmPassword')" class="invalid-feedback">
+                      {{ getFieldError('confirmPassword') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Κουμπί υποβολής -->
+              <div class="d-grid gap-2 mt-3">
+                <button 
+                  type="submit" 
+                  class="btn bg-warning btn-lg"
+                  [disabled]="!canSubmit() || isLoading">
+                  <span *ngIf="!isLoading">
+                    Δημιουργία Λογαριασμού
+                  </span>
+                  <span *ngIf="isLoading">
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Δημιουργία Λογαριασμού...
+                  </span>
+                </button>
+              </div>
+
+              <div class="text-center my-3">
+                <span class="bg-light px-3 text-muted">ΈΧΕΤΕ ΗΔΗ ΛΟΓΑΡΙΑΣΜΟ;</span>
+              </div>
+
+              <div class="text-center">
+                <a routerLink="/login" class="btn btn-outline-primary">
+                  Σύνδεση σε Υπάρχον Λογαριασμό
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

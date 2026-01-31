@@ -1,0 +1,6 @@
+gym_backend/node_modules/ 
+gym_backend/dist/ 
+gym_backend/.env 
+gym-frontend/node_modules/ 
+gym-frontend/dist/ 
+*.log 

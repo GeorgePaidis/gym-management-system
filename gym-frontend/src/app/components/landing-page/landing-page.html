@@ -1,0 +1,84 @@
+<div class="landing-page min-vh-100 d-flex flex-column">
+  <!-- Κύριο περιεχόμενο -->
+  <main class="flex-grow-1">
+    <!-- Hero section με background εικόνα -->
+    <section class="hero-section position-relative text-white">
+      <!-- Background εικόνα -->
+      <div class="position-absolute top-0 start-0 w-100 h-100">
+        <div class="w-100 h-100 bg-dark opacity-50"></div>
+        <div class="position-absolute top-0 start-0 w-100 h-100" 
+             style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop') 
+                    center/cover;">
+        </div>
+      </div>
+      
+      <!-- Περιεχόμενο πάνω από την εικόνα -->
+      <div class="position-relative container py-5" style="min-height: 70vh;">
+        <div class="row align-items-center h-100">
+          <div class="col-lg-8">
+            <div class="py-5">
+              <h2 class="display-3 fw-bold mb-4">Καλώς ήρθατε στο <span class="text-primary">Power Gym</span></h2>
+              <p class="lead fs-4 mb-4">
+                Το πιο προηγμένο γυμναστήριο της πόλης, σχεδιασμένο για να φτάσετε 
+                στους αθλητικούς σας στόχους με την καλύτερη δυνατή υποστήριξη.
+              </p>
+              
+              <div class="mt-5">
+                <button class="btn btn-warning btn-lg me-3" routerLink="/register">
+                  Δημιουργία Λογαριασμού
+                </button>
+                <button class="btn btn-outline-light btn-lg" routerLink="/login">
+                  Σύνδεση
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Στοιχεία επικοινωνίας -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row text-center">
+          <!-- Ώρες λειτουργίας -->
+          <div class="col-md-4 mb-4">
+            <div class="bg-white p-4 rounded shadow h-100">
+              <i class="bi bi-clock fs-1 text-primary mb-3"></i>
+              <h3>Ώρες Λειτουργίας</h3>
+              <p class="mb-0">
+                Δευτέρα - Παρασκευή: 8:00 - 23:00<br>
+                Σάββατο - Κυριακή: 10:00 - 18:00
+              </p>
+            </div>
+          </div>
+          
+          <!-- Τοποθεσία -->
+          <div class="col-md-4 mb-4">
+            <div class="bg-white p-4 rounded shadow h-100">
+              <i class="bi bi-geo-alt fs-1 text-primary mb-3"></i>
+              <h3>Τοποθεσία</h3>
+              <p class="mb-0">
+                Ασκληπιού 48<br>
+                Τρίκαλα, Ελλάδα
+              </p>
+            </div>
+          </div>
+          
+          <!-- Επικοινωνία -->
+          <div class="col-md-4 mb-4">
+            <div class="bg-white p-4 rounded shadow h-100">
+              <i class="bi bi-telephone fs-1 text-primary mb-3"></i>
+              <h3>Επικοινωνία</h3>
+              <p class="mb-0">
+                Τηλ: 2431 356482<br>
+                Email: info@powergym.gr
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

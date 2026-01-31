@@ -1,0 +1,271 @@
+<div class="container">
+  <!-- Header με κουμπί αποθήκευσης -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">
+      Επεξεργασία Προγράμματος Προπονήσεων
+    </h1>
+    <button class="btn btn-warning" (click)="saveSchedule()">
+      Αποθήκευση Προγράμματος
+    </button>
+  </div>
+
+  <!-- Μηνύματα επιτυχίας και σφάλματος -->
+  @if (successMessage) {
+    <div class="alert alert-success alert-dismissible fade show mb-4">
+      {{ successMessage }}
+      <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="alert alert-danger alert-dismissible fade show mb-4">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+    </div>
+  }
+
+  <!-- Κατάσταση φόρτωσης -->
+  @if (loading) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Φόρτωση...</span>
+      </div>
+      <p class="mt-2">Φόρτωση προγράμματος...</p>
+    </div>
+  }
+
+  <!-- Επεξεργαστής προγράμματος -->
+  @if (!loading && schedule) {
+    <div class="row">
+      <!-- Αριστερή στήλη: Φόρμα προσθήκης/επεξεργασίας -->
+      <div class="col-lg-4 mb-4">
+        <div class="card sticky-top" style="top: 20px;">
+          <div class="card-header">
+            <h5 class="mb-0">
+              @if (editMode) {
+                Επεξεργασία Προπόνησης
+              } @else {
+                Προσθήκη Νέας Προπόνησης
+              }
+            </h5>
+          </div>
+          <div class="card-body">
+            <form (submit)="addClass(); $event.preventDefault()">
+              <div class="mb-3">
+                <label class="form-label">Ημέρα</label>
+                <select 
+                  class="form-select" 
+                  [(ngModel)]="selectedDay" 
+                  name="day"
+                >
+                  <option value="monday">Δευτέρα</option>
+                  <option value="tuesday">Τρίτη</option>
+                  <option value="wednesday">Τετάρτη</option>
+                  <option value="thursday">Πέμπτη</option>
+                  <option value="friday">Παρασκευή</option>
+                  <option value="saturday">Σάββατο</option>
+                  <option value="sunday">Κυριακή</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Ώρα</label>
+                <input 
+                  type="time" 
+                  class="form-control"
+                  [(ngModel)]="newClass.time"
+                  name="time"
+                  required
+                >
+                <div class="form-text">Μορφή: HH:MM (24-ωρη)</div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Όνομα Προπόνησης</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  [(ngModel)]="newClass.name"
+                  name="name"
+                  placeholder="π.χ., Yoga, CrossFit, Pilates"
+                  required
+                >
+              </div>
+              
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-warning">
+                  @if (editMode) {
+                    Ενημέρωση Προπόνησης
+                  } @else {
+                    Προσθήκη Προπόνησης
+                  }
+                </button>
+                
+                @if (editMode) {
+                  <button 
+                    type="button" 
+                    class="btn btn-secondary"
+                    (click)="editMode = false; newClass = { time: '', name: '' }"
+                  >
+                    Ακύρωση Επεξεργασίας
+                  </button>
+                }
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Δεξιά στήλη: Προβολή προγράμματος -->
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Εβδομαδιαίο Πρόγραμμα</h5>
+              <div class="text-muted">
+                Συνολικά Προπονήσεις: {{ getTotalClasses() }}
+              </div>
+            </div>
+          </div>
+          
+          <div class="card-body p-0">
+            <!-- Καρτέλες ημερών -->
+            <ul class="nav nav-tabs" id="scheduleTabs">
+              <li class="nav-item">
+                <button 
+                  class="nav-link" 
+                  [class.active]="selectedDay === 'monday'"
+                  (click)="selectedDay = 'monday'"
+                >
+                  Δευτέρα
+                  <span class="badge bg-secondary ms-1">
+                    {{ getClassesForDay('monday').length }}
+                  </span>
+                </button>
+              </li>
+              <li class="nav-item">
+                <button 
+                  class="nav-link" 
+                  [class.active]="selectedDay === 'tuesday'"
+                  (click)="selectedDay = 'tuesday'"
+                >
+                  Τρίτη
+                  <span class="badge bg-secondary ms-1">
+                    {{ getClassesForDay('tuesday').length }}
+                  </span>
+                </button>
+              </li>
+              <li class="nav-item">
+                <button 
+                  class="nav-link" 
+                  [class.active]="selectedDay === 'wednesday'"
+                  (click)="selectedDay = 'wednesday'"
+                >
+                  Τετάρτη
+                  <span class="badge bg-secondary ms-1">
+                    {{ getClassesForDay('wednesday').length }}
+                  </span>
+                </button>
+              </li>
+              <li class="nav-item">
+                <button 
+                  class="nav-link" 
+                  [class.active]="selectedDay === 'thursday'"
+                  (click)="selectedDay = 'thursday'"
+                >
+                  Πέμπτη
+                  <span class="badge bg-secondary ms-1">
+                    {{ getClassesForDay('thursday').length }}
+                  </span>
+                </button>
+              </li>
+              <li class="nav-item">
+                <button 
+                  class="nav-link" 
+                  [class.active]="selectedDay === 'friday'"
+                  (click)="selectedDay = 'friday'"
+                >
+                  Παρασκευή
+                  <span class="badge bg-secondary ms-1">
+                    {{ getClassesForDay('friday').length }}
+                  </span>
+                </button>
+              </li>
+              <li class="nav-item">
+                <button 
+                  class="nav-link" 
+                  [class.active]="selectedDay === 'saturday'"
+                  (click)="selectedDay = 'saturday'"
+                >
+                  Σάββατο
+                  <span class="badge bg-secondary ms-1">
+                    {{ getClassesForDay('saturday').length }}
+                  </span>
+                </button>
+              </li>
+              <li class="nav-item">
+                <button 
+                  class="nav-link" 
+                  [class.active]="selectedDay === 'sunday'"
+                  (click)="selectedDay = 'sunday'"
+                >
+                  Κυριακή
+                  <span class="badge bg-secondary ms-1">
+                    {{ getClassesForDay('sunday').length }}
+                  </span>
+                </button>
+              </li>
+            </ul>
+            
+            <!-- Λίστα προπονήσεων για επιλεγμένη ημέρα -->
+            <div class="p-4">
+              <h6 class="text-muted mb-3">
+                Προπονήσεις για 
+                @if (selectedDay === 'monday') { Δευτέρα }
+                @if (selectedDay === 'tuesday') { Τρίτη }
+                @if (selectedDay === 'wednesday') { Τετάρτη }
+                @if (selectedDay === 'thursday') { Πέμπτη }
+                @if (selectedDay === 'friday') { Παρασκευή }
+                @if (selectedDay === 'saturday') { Σάββατο }
+                @if (selectedDay === 'sunday') { Κυριακή }
+              </h6>
+              
+              @if (getClassesForDay(selectedDay).length === 0) {
+                <div class="text-center py-5">
+                  <p class="text-muted">Δεν υπάρχουν προπονήσεις για αυτή την ημέρα</p>
+                </div>
+              } @else {
+                <div class="list-group">
+                  @for (cls of getClassesForDay(selectedDay); track cls.time; let i = $index) {
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                      <div>
+                        <span class="badge bg-primary me-2">{{ cls.time }}</span>
+                        <strong>{{ cls.name }}</strong>
+                      </div>
+                      <div class="btn-group btn-group-sm">
+                        <button 
+                          class="btn btn-outline-primary"
+                          (click)="editClass(selectedDay, i)"
+                          title="Επεξεργασία"
+                        >
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button 
+                          class="btn btn-outline-danger"
+                          (click)="deleteClass(selectedDay, i)"
+                          title="Διαγραφή"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

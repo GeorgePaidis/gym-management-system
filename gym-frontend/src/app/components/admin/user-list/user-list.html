@@ -1,0 +1,281 @@
+<div class="container">
+  <!-- Header με κουμπί προσθήκης μέλους -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">
+      Διαχείριση Μελών
+    </h1>
+    <button class="btn btn-warning" (click)="openAddModal()">
+      Προσθήκη Μέλους
+    </button>
+  </div>
+
+  <!-- Μήνυμα επιτυχίας -->
+  @if (successMessage) {
+    <div class="alert alert-success alert-dismissible fade show mb-4">
+      {{ successMessage }}
+      <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+    </div>
+  }
+
+  <!-- Κατάσταση φόρτωσης -->
+  @if (loading) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Φόρτωση...</span>
+      </div>
+      <p class="mt-2">Φόρτωση μελών...</p>
+    </div>
+  }
+
+  <!-- Πίνακας μελών -->
+  @if (!loading) {
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Όνομα</th>
+              <th>Email</th>
+              <th>Τηλέφωνο</th>
+              <th>Ρόλος</th>
+              <th>Ημερομηνία Εγγραφής</th>
+              <th>Ενέργειες</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of filteredUsers; track user._id) {
+              <tr>
+                <td>
+                  <strong>{{ user.firstname }} {{ user.lastname }}</strong>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone || 'Δ/Υ' }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                    'bg-primary': user.role === 'ADMIN',
+                    'bg-warning': user.role === 'MEMBER'
+                  }">
+                    {{ user.role }}
+                  </span>
+                </td>
+                <td>{{ user.joinDate | date:'dd/MM/yyyy' }}</td>
+                <td>
+                  <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-primary" (click)="editUser(user)" title="Επεξεργασία">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button 
+                      class="btn btn-outline-danger" 
+                      (click)="deleteUser(user._id!)"
+                      [disabled]="user.role === 'ADMIN'"
+                      title="Διαγραφή">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+            @empty {
+              <tr>
+                <td colspan="6" class="text-center py-4">
+                  <div class="text-muted">
+                    Δεν βρέθηκαν μέλη
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="card-footer d-flex justify-content-between align-items-center">
+        <div class="text-muted">
+          Εμφάνιση {{ filteredUsers.length }} από {{ users.length }} μέλη
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Modal προσθήκης νέου μέλους -->
+  @if (showAddModal) {
+    <div class="modal show d-block" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Προσθήκη Νέου Μέλους
+            </h5>
+            <button type="button" class="btn-close" (click)="closeAddModal()"></button>
+          </div>
+          
+          <div class="modal-body">
+            @if (errorMessage) {
+              <div class="alert alert-danger">
+                {{ errorMessage }}
+              </div>
+            }
+            
+            <div class="mb-3">
+              <label class="form-label">Email *</label>
+              <input 
+                type="email" 
+                class="form-control"
+                [(ngModel)]="newUser.email"
+                placeholder="Εισάγετε το email"
+                required
+              >
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Όνομα *</label>
+                  <input 
+                    type="text" 
+                    class="form-control"
+                    [(ngModel)]="newUser.firstname"
+                    placeholder="Όνομα"
+                    required
+                  >
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Επώνυμο *</label>
+                  <input 
+                    type="text" 
+                    class="form-control"
+                    [(ngModel)]="newUser.lastname"
+                    placeholder="Επώνυμο"
+                    required
+                  >
+                </div>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Τηλέφωνο (Προαιρετικό)</label>
+              <input 
+                type="text" 
+                class="form-control"
+                [(ngModel)]="newUser.phone"
+                placeholder="Αριθμός τηλεφώνου"
+              >
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Κωδικός Πρόσβασης *</label>
+              <input 
+                type="text" 
+                class="form-control"
+                [(ngModel)]="newUser.password"
+                placeholder="Ο κωδικός πρέπει να είναι τουλάχιστον 6 χαρακτήρες"
+                required
+              >
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Ρόλος</label>
+              <select class="form-select" [(ngModel)]="newUser.role">
+                <option value="MEMBER">Μέλος</option>
+                <option value="ADMIN">Διαχειριστής</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeAddModal()">
+              Ακύρωση
+            </button>
+            <button type="button" class="btn btn-warning" (click)="addNewUser()">
+              Προσθήκη Μέλους
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+  }
+
+  <!-- Modal επεξεργασίας μέλους -->
+  @if (editMode && selectedUser) {
+    <div class="modal show d-block" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Επεξεργασία Μέλους
+            </h5>
+            <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+          </div>
+          
+          <div class="modal-body">
+            @if (errorMessage) {
+              <div class="alert alert-danger">
+                {{ errorMessage }}
+              </div>
+            }
+            
+            <div class="mb-3">
+              <label class="form-label">Όνομα</label>
+              <input 
+                type="text" 
+                class="form-control"
+                [(ngModel)]="selectedUser.firstname"
+                required
+              >
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Επώνυμο</label>
+              <input 
+                type="text" 
+                class="form-control"
+                [(ngModel)]="selectedUser.lastname"
+                required
+              >
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input 
+                type="email" 
+                class="form-control"
+                [(ngModel)]="selectedUser.email"
+                required
+              >
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Τηλέφωνο</label>
+              <input 
+                type="text" 
+                class="form-control"
+                [(ngModel)]="selectedUser.phone"
+                placeholder="Προαιρετικό"
+              >
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Ρόλος</label>
+              <select class="form-select" [(ngModel)]="selectedUser.role">
+                <option value="MEMBER">Μέλος</option>
+                <option value="ADMIN">Διαχειριστής</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeEditModal()">
+              Ακύρωση
+            </button>
+            <button type="button" class="btn btn-warning" (click)="saveUser()">
+              Αποθήκευση Αλλαγών
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+  }
+</div>
