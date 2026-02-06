@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { 
@@ -19,6 +19,7 @@ import { AuthService, RegisterData } from '../../../shared/services/auth.service
   styleUrls: ['./register.css']
 })
 export class Register implements OnInit {
+  private cdRef = inject(ChangeDetectorRef);
   registerForm!: FormGroup;
   isLoading = false;
   errorMessage = '';
@@ -137,7 +138,8 @@ export class Register implements OnInit {
       next: (response: any) => {
         this.isLoading = false;
         this.successMessage = 'Ο λογαριασμός δημιουργήθηκε επιτυχώς! Θα μεταφερθείτε στη σελίδα σύνδεσης σε 5 δευτερόλεπτα...';
-        
+        this.cdRef.detectChanges();
+
         // Αυτόματη ανακατεύθυνση μετά από 5 δευτερόλεπτα
         setTimeout(() => {
           this.router.navigate(['/login'], {
@@ -150,7 +152,8 @@ export class Register implements OnInit {
       },
       error: (error: any) => {
         this.isLoading = false;
-        
+        this.cdRef.detectChanges();
+
         // Χειρισμός διαφορετικών τύπων σφαλμάτων
         if (error.status === 409) {
           this.errorMessage = 'Αυτό το email είναι ήδη εγγεγραμμένο. Παρακαλώ χρησιμοποιήστε διαφορετικό email ή δοκιμάστε σύνδεση.';
@@ -163,6 +166,7 @@ export class Register implements OnInit {
         } else {
           this.errorMessage = error.error?.message || 'Αποτυχία εγγραφής. Παρακαλώ δοκιμάστε ξανά.';
         }
+        this.cdRef.detectChanges();
       }
     });
   }

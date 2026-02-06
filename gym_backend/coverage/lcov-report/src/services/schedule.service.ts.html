@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>10/15</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">54.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>6/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -103,23 +103,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -128,40 +117,51 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ISchedule, IWorkoutClass } from '../models/schedule.model';
 import { ScheduleRepository } from '../repositories/schedule.repository';
 &nbsp;
 const scheduleRepository = new ScheduleRepository();
 &nbsp;
 // Λήψη του προγράμματος
-export const getSchedule = async () =&gt; {
-  return scheduleRepository.get();
+export const getSchedule = <span class="fstat-no" title="function not covered" >async </span>() =&gt; {
+<span class="cstat-no" title="statement not covered" >  return scheduleRepository.get();</span>
 };
 &nbsp;
-// Ενημέρωση ολόκληρου του προγράμματος
-export const updateSchedule = async (payload: Partial&lt;ISchedule&gt;) =&gt; {
-  return scheduleRepository.update(payload);
+// Ενημέρωση του προγράμματος
+export const updateSchedule = <span class="fstat-no" title="function not covered" >async </span>(payload: Partial&lt;ISchedule&gt;) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return scheduleRepository.update(payload);</span>
 };
 &nbsp;
-// Προσθήκη νέου μαθήματος σε συγκεκριμένη ημέρα
-export const addClassToDay = async (
+// Προσθήκη νέου μαθήματος
+export const addClassToDay = <span class="fstat-no" title="function not covered" >async </span>(
   day: keyof ISchedule,
   time: string,
   name: string
 ) =&gt; {
-  const newClass: IWorkoutClass = { time, name };
+  const newClass: IWorkoutClass = <span class="cstat-no" title="statement not covered" >{ time, name };</span>
   
-  return scheduleRepository.addClassToDay(day, newClass);
+<span class="cstat-no" title="statement not covered" >  return scheduleRepository.addClassToDay(day, newClass);</span>
 };
 &nbsp;
-// Αφαίρεση μαθήματος από ημέρα (με βάση ώρα και όνομα)
-export const removeClassFromDay = async (
+// Αφαίρεση μαθήματος
+export const removeClassFromDay = <span class="fstat-no" title="function not covered" >async </span>(
   day: keyof ISchedule,
   time: string,
   name: string
 ) =&gt; {
-  return scheduleRepository.removeClassFromDay(day, time, name);
+<span class="cstat-no" title="statement not covered" >  return scheduleRepository.removeClassFromDay(day, time, name);</span>
 };</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -169,7 +169,7 @@ export const removeClassFromDay = async (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-30T20:21:07.482Z
+                at 2026-02-05T15:52:17.740Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

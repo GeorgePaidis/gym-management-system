@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 export class Login {
   authService = inject(AuthService);
   router = inject(Router);
+  private cdRef = inject(ChangeDetectorRef);
 
   invalidLogin: boolean = false;
   isLoading: boolean = false;
@@ -42,11 +43,12 @@ export class Login {
         next: (response) => {
           this.authService.handleLoginSuccess(response);
           this.isLoading = false;
+          this.cdRef.detectChanges();
         },
         error: (error) => {
           this.isLoading = false;
           this.invalidLogin = true;
-          
+
           if (error.status === 401) {
             this.errorMessage = 'Λάθος email ή κωδικός πρόσβασης';
           } else if (error.status === 0) {
@@ -54,8 +56,9 @@ export class Login {
           } else {
             this.errorMessage = 'Σφάλμα κατά τη σύνδεση';
           }
-          
+
           this.form.get('password')?.reset();
+          this.cdRef.detectChanges();
         }
       });
   }

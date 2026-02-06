@@ -35,7 +35,6 @@ export class Profile implements OnInit {
       lastname: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       phone: [''],
-      currentPassword: [''],
       newPassword: ['', [Validators.minLength(6)]],
       confirmPassword: ['']
     }, { validator: this.passwordMatchValidator });
@@ -124,7 +123,6 @@ export class Profile implements OnInit {
     
     // Προσθήκη κωδικού αν ο χρήστης θέλει να τον αλλάξει
     if (formData.newPassword) {
-      updateData.currentPassword = formData.currentPassword;
       updateData.password = formData.newPassword;
     }
     
@@ -162,7 +160,7 @@ export class Profile implements OnInit {
         } else if (error.status === 400) {
           this.showMessage('Μη έγκυρα στοιχεία ενημέρωσης', 'error');
         } else if (error.status === 401) {
-          this.showMessage('Λάθος τρέχων κωδικός πρόσβασης', 'error');
+          this.showMessage('Δεν έχετε δικαίωμα για αυτή την ενέργεια. Παρακαλώ συνδεθείτε ξανά.', 'error');
         } else {
           this.showMessage(
             error.error?.message || 'Αποτυχία ενημέρωσης προφίλ. Παρακαλώ δοκιμάστε ξανά.',
@@ -193,7 +191,6 @@ export class Profile implements OnInit {
   get lastname() { return this.profileForm.get('lastname'); }
   get email() { return this.profileForm.get('email'); }
   get phone() { return this.profileForm.get('phone'); }
-  get currentPassword() { return this.profileForm.get('currentPassword'); }
   get newPassword() { return this.profileForm.get('newPassword'); }
   get confirmPassword() { return this.profileForm.get('confirmPassword'); }
 }

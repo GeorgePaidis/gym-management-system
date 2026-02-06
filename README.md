@@ -1,78 +1,79 @@
-🏋️‍♂️ Gym Management System
-Τελική Εργασία - Coding Factory ΟΠΑ
+# Gym Management System
 
-📋 Σχετικά με την Εφαρμογή
-Το Gym Management System είναι μια πλήρης web εφαρμογή για τη διαχείριση γυμναστηρίου. Περιλαμβάνει:
+Τελική εργασία — Coding Factory ΟΠΑ.
 
-Σύστημα αυθεντικοποίησης με δύο τύπους χρηστών (Administrator / Member)
+Η εφαρμογή απευθύνεται σε γυμναστήριο και επιτρέπει σε μέλη να εγγραφούν, να συνδέονται και να βλέπουν το εβδομαδιαίο πρόγραμμα μαθημάτων. Ο διαχειριστής μπορεί να διαχειρίζεται τη λίστα μελών (προσθήκη, επεξεργασία, διαγραφή) και να επεξεργάζεται το πρόγραμμα (προσθήκη ή αφαίρεση μαθημάτων ανά ημέρα και ώρα). Κάθε μέλος μπορεί να δει και να ενημερώσει το δικό του προφίλ. Η πρόσβαση στις λειτουργίες ελέγχεται ανά ρόλο (διαχειριστής ή μέλος).
 
-Πλήρη διαχείριση μελών (μόνο για admin)
+---
 
-Δυναμικό πρόγραμμα μαθημάτων (διαχείριση από admin, προβολή από μέλη)
+## Quick start
 
-Responsive διεπαφή με Bootstrap
+---
 
-REST API με τεκμηρίωση Swagger
+**Backend**
 
-🚀 Εκκίνηση & Deployment
+1. Μπες στο φάκελο και εγκατέστησε τις εξαρτήσεις:
 
-1 Clone το Repository
-bash
-git clone https://github.com/GeorgePaidis/gym-management-system.git
-cd gym-management-system
-
-2 Εκκίνηση Backend (Node.js API)
-bash
+```bash
 cd gym_backend
-npm install          # Εγκατάσταση dependencies
-npm run dev          # Development server με auto-reload
-Ο server θα τρέξει στο: http://localhost:3000
+npm install
+```
 
-3 Εκκίνηση Frontend (Angular)
-bash
+2. Δημιούργησε αρχείο **.env** μέσα στο **gym_backend** με:
+
+```
+JWT_SECRET=ο-μυστικο-κλειδι-σου
+MONGODB_URI=mongodb://localhost:27017/gymdb
+```
+
+3. Ξεκίνα τον server:
+
+```bash
+npm run dev
+```
+
+Η εφαρμογή τρέχει στο **http://localhost:3000**. Η τεκμηρίωση API στο **http://localhost:3000/api/docs**.
+
+**Frontend** (σε νέο terminal)
+
+1. Μπες στο φάκελο, εγκατέστησε και ξεκίνα:
+
+```bash
 cd gym-frontend
-npm install          # Εγκατάσταση dependencies
-ng serve             # Development server
-Η εφαρμογή θα ανοίξει στο: http://localhost:4200
+npm install
+ng serve
+```
 
+Η εφαρμογή ανοίγει στο **http://localhost:4200**.
 
-👥 Διαπιστευτήρια Χρηστών
+Χρειάζεσαι MongoDB τρέχον τοπικά ή σωστό **MONGODB_URI** στο **.env**.
 
-Administrator ( Πλήρης Πρόσβαση)
+---
 
-Email: admin@gym.com
-Κωδικός: admin123
+## Demo λογαριασμοί
 
+---
 
-Member ( Περιορισμένη Πρόσβαση)
+**Admin:** admin@gym.com / admin123
 
-Email: tester@gym.com
-Κωδικός: tester123
+**Member:** tester@gym.com / tester123
 
-🛠️ Τεχνολογίες
+---
 
-Backend
+## Τεχνολογίες και αρχιτεκτονική
 
-Runtime: Node.js
+---
 
-Framework: Express.js
+**Backend**
 
-Γλώσσα: TypeScript
+- Node.js με Express και TypeScript. Βάση δεδομένων MongoDB με Mongoose. Ασφάλεια: JWT για σύνδεση, bcrypt για κωδικούς. Επικύρωση εισόδου με Zod. Τεκμηρίωση API με Swagger.
+- Δομή: **routes** → **middlewares** (auth, admin, validation) → **controllers** → **services** → **repositories** → **models**
 
-Βάση Δεδομένων: MongoDB + Mongoose
+**Frontend**
 
-Ασφάλεια: JWT, bcrypt
+- Angular 20, TypeScript, Bootstrap 5
+- Guards (auth, admin), HTTP interceptor για JWT και 401, zoneless με **ChangeDetectorRef**
 
-Validation: Zod
+---
 
-API Documentation: Swagger UI
-
-Frontend
-
-Framework: Angular 20
-
-Γλώσσα: TypeScript
-
-UI: Bootstrap 5 + Bootstrap Icons
-
-Routing: Angular Router με Guards
+Άδεια: ISC.

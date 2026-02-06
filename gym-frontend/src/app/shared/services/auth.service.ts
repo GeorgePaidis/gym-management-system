@@ -49,7 +49,7 @@ export class AuthService {
 
   // Εγγραφή νέου χρήστη
   registerUser(userData: RegisterData) {
-    return this.http.post<{ token: string; user: IUser }>(
+    return this.http.post<{ message: string; user: IUser }>(
       `${environment.apiUrl}/api/auth/register`,
       userData
     );

@@ -2,7 +2,6 @@ import { Router } from "express";
 import * as authCtrl from '../controllers/auth.controller';
 import { validate } from '../middlewares/validate.middleware';
 import { loginSchema, registerSchema } from '../validators/auth.validator';
-import { register } from "../controllers/auth.controller";
 
 const router = Router();
 
@@ -40,7 +39,7 @@ const router = Router();
  *      400:
  *        description: Validation error
  */
-router.post("/register", validate(registerSchema), register);
+router.post("/register", validate(registerSchema), authCtrl.register);
 
 /**
  * @openapi

@@ -7,6 +7,7 @@ import { setupSwagger } from './swagger';
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import scheduleRoutes from './routes/schedule.routes';
+import { errorHandler } from './middlewares/error.middleware';
 
 dotenv.config();
 
@@ -34,5 +35,7 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString()
   });
 });
+
+app.use(errorHandler);
 
 export default app;

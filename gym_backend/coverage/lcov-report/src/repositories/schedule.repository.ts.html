@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -96,26 +96,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,27 +124,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Schedule, { ISchedule, IWorkoutClass } from '../models/schedule.model';
 &nbsp;
 export class ScheduleRepository {
-  async get(): Promise&lt;ISchedule | null&gt; {
-    return Schedule.findOne().lean();
+<span class="fstat-no" title="function not covered" >  async </span>get(): Promise&lt;ISchedule | null&gt; {
+<span class="cstat-no" title="statement not covered" >    return Schedule.findOne().lean();</span>
   }
 &nbsp;
-  async update(data: Partial&lt;ISchedule&gt;): Promise&lt;ISchedule | null&gt; {
-    return Schedule.findOneAndUpdate({}, data, { 
+<span class="fstat-no" title="function not covered" >  async </span>update(data: Partial&lt;ISchedule&gt;): Promise&lt;ISchedule | null&gt; {
+<span class="cstat-no" title="statement not covered" >    return Schedule.findOneAndUpdate({}, data, { </span>
       new: true,
       upsert: true 
     }).lean();
   }
 &nbsp;
-  async addClassToDay(day: keyof ISchedule, classData: IWorkoutClass): Promise&lt;ISchedule | null&gt; {
-    return Schedule.findOneAndUpdate(
+<span class="fstat-no" title="function not covered" >  async </span>addClassToDay(day: keyof ISchedule, classData: IWorkoutClass): Promise&lt;ISchedule | null&gt; {
+<span class="cstat-no" title="statement not covered" >    return Schedule.findOneAndUpdate(</span>
       {},
       { $push: { [day]: classData } },
       { new: true }
     ).lean();
   }
 &nbsp;
-  async removeClassFromDay(day: keyof ISchedule, time: string, name: string): Promise&lt;ISchedule | null&gt; {
-    return Schedule.findOneAndUpdate(
+<span class="fstat-no" title="function not covered" >  async </span>removeClassFromDay(day: keyof ISchedule, time: string, name: string): Promise&lt;ISchedule | null&gt; {
+<span class="cstat-no" title="statement not covered" >    return Schedule.findOneAndUpdate(</span>
       {},
       { $pull: { [day]: { time, name } } },
       { new: true }
@@ -157,7 +157,7 @@ export class ScheduleRepository {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-30T20:21:07.482Z
+                at 2026-02-05T15:52:17.740Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

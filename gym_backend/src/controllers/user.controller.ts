@@ -7,7 +7,7 @@ export const list = async (req: Request, res: Response, next: NextFunction) => {
     const result = await userService.findAllUsers();
     res.status(200).json(result);
   } catch (err) {
-    res.status(401).json(err);
+    next(err);
   }
 };
 
