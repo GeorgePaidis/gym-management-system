@@ -12,59 +12,66 @@
 
 **Backend**
 
-1. Μπες στο φάκελο και εγκατέστησε τις εξαρτήσεις:
+1. Μπες στο φάκελο και εγκατέστησε το backend:
 
 ```bash
 cd gym_backend
-npm install          # Εγκατάσταση dependencies
-npm run dev          # Development server με auto-reload
-# Ο server θα τρέξει στο: http://localhost:3000
+npm install
+```
 
-3. Εκκίνηση Frontend (Angular)
-bash
+2. Δημιούργησε αρχείο .env μέσα στο gym_backend με:
+
+```
+JWT_SECRET=your-secret-key
+MONGODB_URI=mongodb://localhost:27017/gymdb
+```
+
+3. Ξεκίνα τον server:
+
+```bash
+npm run dev
+```
+
+Η εφαρμογή τρέχει στο **http://localhost:3000**. Η τεκμηρίωση API στο **http://localhost:3000/api/docs**.
+
+**Frontend** (σε νέο terminal)
+
+1. Μπες στο φάκελο, εγκατέστησε και ξεκίνα:
+
+```bash
 cd gym-frontend
-npm install          # Εγκατάσταση dependencies
-ng serve             # Development server
-# Η εφαρμογή θα ανοίξει στο: http://localhost:4200
+npm install
+ng serve
+```
 
+Η εφαρμογή ανοίγει στο **http://localhost:4200**.
 
-👥 Διαπιστευτήρια Χρηστών
+Χρειάζεσαι MongoDB τοπικά ή σωστό **MONGODB_URI** στο **.env**.
 
-Administrator ( Πλήρης Πρόσβαση)
+---
 
-Email: admin@gym.com
-Κωδικός: admin123
+## Demo λογαριασμοί
 
+---
 
-Member ( Περιορισμένη Πρόσβαση)
+**Admin:** admin@gym.com / admin123
 
-Email: tester@gym.com
-Κωδικός: tester123
+**Member:** tester@gym.com / tester123
 
-🛠️ Τεχνολογίες
+---
 
-Backend
+## Τεχνολογίες και αρχιτεκτονική
 
-Runtime: Node.js
+---
 
-Framework: Express.js
+**Backend**
 
-Γλώσσα: TypeScript
+- Node.js με Express και TypeScript.
+  Βάση δεδομένων MongoDB με Mongoose.
+  Τεκμηρίωση API με Swagger.
 
-Βάση Δεδομένων: MongoDB + Mongoose
+**Frontend**
 
-Ασφάλεια: JWT, bcrypt
+- Angular, TypeScript, Bootstrap
 
-Validation: Zod
-
-API Documentation: Swagger UI
-
-Frontend
-
-Framework: Angular 20
-
-Γλώσσα: TypeScript
-
-UI: Bootstrap 5 + Bootstrap Icons
-
-Routing: Angular Router με Guards
+---
