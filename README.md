@@ -16,64 +16,55 @@
 
 ```bash
 cd gym_backend
-npm install
-```
+npm install          # Εγκατάσταση dependencies
+npm run dev          # Development server με auto-reload
+# Ο server θα τρέξει στο: http://localhost:3000
 
-2. Δημιούργησε αρχείο **.env** μέσα στο **gym_backend** με:
-
-```
-JWT_SECRET=ο-μυστικο-κλειδι-σου
-MONGODB_URI=mongodb://localhost:27017/gymdb
-```
-
-3. Ξεκίνα τον server:
-
-```bash
-npm run dev
-```
-
-Η εφαρμογή τρέχει στο **http://localhost:3000**. Η τεκμηρίωση API στο **http://localhost:3000/api/docs**.
-
-**Frontend** (σε νέο terminal)
-
-1. Μπες στο φάκελο, εγκατέστησε και ξεκίνα:
-
-```bash
+3. Εκκίνηση Frontend (Angular)
+bash
 cd gym-frontend
-npm install
-ng serve
-```
+npm install          # Εγκατάσταση dependencies
+ng serve             # Development server
+# Η εφαρμογή θα ανοίξει στο: http://localhost:4200
 
-Η εφαρμογή ανοίγει στο **http://localhost:4200**.
 
-Χρειάζεσαι MongoDB τρέχον τοπικά ή σωστό **MONGODB_URI** στο **.env**.
+👥 Διαπιστευτήρια Χρηστών
 
----
+Administrator ( Πλήρης Πρόσβαση)
 
-## Demo λογαριασμοί
+Email: admin@gym.com
+Κωδικός: admin123
 
----
 
-**Admin:** admin@gym.com / admin123
+Member ( Περιορισμένη Πρόσβαση)
 
-**Member:** tester@gym.com / tester123
+Email: tester@gym.com
+Κωδικός: tester123
 
----
+🛠️ Τεχνολογίες
 
-## Τεχνολογίες και αρχιτεκτονική
+Backend
 
----
+Runtime: Node.js
 
-**Backend**
+Framework: Express.js
 
-- Node.js με Express και TypeScript. Βάση δεδομένων MongoDB με Mongoose. Ασφάλεια: JWT για σύνδεση, bcrypt για κωδικούς. Επικύρωση εισόδου με Zod. Τεκμηρίωση API με Swagger.
-- Δομή: **routes** → **middlewares** (auth, admin, validation) → **controllers** → **services** → **repositories** → **models**
+Γλώσσα: TypeScript
 
-**Frontend**
+Βάση Δεδομένων: MongoDB + Mongoose
 
-- Angular 20, TypeScript, Bootstrap 5
-- Guards (auth, admin), HTTP interceptor για JWT και 401, zoneless με **ChangeDetectorRef**
+Ασφάλεια: JWT, bcrypt
 
----
+Validation: Zod
 
-Άδεια: ISC.
+API Documentation: Swagger UI
+
+Frontend
+
+Framework: Angular 20
+
+Γλώσσα: TypeScript
+
+UI: Bootstrap 5 + Bootstrap Icons
+
+Routing: Angular Router με Guards
